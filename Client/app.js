@@ -37,17 +37,7 @@ function GetMovies(){
             type: 'get',
             contentType: 'application/json',
             success: function( data, textStatus, jQxhr ){
-                console.log("reached this point");
-                console.log(data);
-                console.log(["data"][0]["title"]);
-                console.log(data[0].title);
-                console.log(data[0])
-                $("#movieTable").html("");
-                $("#movieTable").append('<table><tr><th>Movie Title</th><th>Genre</th><th>Director</th></tr></table>')
-                for(let i = 0; i < data.length; i++){
-                        $("#movieTable").append('<tr><td>'+data[i].title+'</td><td>'+data[i].genre+'</td><td>'+data[i].director+'</td></tr>');
-                }
-                $('#response pre').html( data );
+               PrintMovieTable(data);
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
@@ -56,3 +46,12 @@ function GetMovies(){
 
         // e.preventDefault();
     }(jQuery);
+
+    function PrintMovieTable(data){
+        $("#movieTable").html("");
+        $("#movieTable").append('<table><tr><th>Movie Title</th><th>Genre</th><th>Director</th></tr></table>')
+        for(let i = 0; i < data.length; i++){
+                $("#movieTable").append('<tr><td>'+data[i].title+'</td><td>'+data[i].genre+'</td><td>'+data[i].director+'</td></tr>');
+        }
+        $('#response pre').html( data );
+    }
