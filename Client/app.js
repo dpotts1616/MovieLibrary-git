@@ -19,8 +19,9 @@
                 console.log( errorThrown );
             }
         });
-
+        
         e.preventDefault();
+
     }
 
     $('#my-form').submit( processForm );
