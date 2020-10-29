@@ -1,0 +1,7 @@
+.movieTable table, th, td{
+    border: 1px solid black;
+}
+
+.movieTable td{
+    padding: 3px;
+}

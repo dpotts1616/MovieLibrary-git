@@ -42,20 +42,11 @@ function GetMovies(){
                 console.log(["data"][0]["title"]);
                 console.log(data[0].title);
                 console.log(data[0])
-                    $("#movieTable").append(data[0].title);
+                $("#movieTable").html("");
+                $("#movieTable").append('<table><tr><th>Movie Title</th><th>Genre</th><th>Director</th></tr></table>')
                 for(let i = 0; i < data.length; i++){
-                        $("#movieTable").append('<tr><td>'+data[0].title+'</td></tr>');
-                        
+                        $("#movieTable").append('<tr><td>'+data[i].title+'</td><td>'+data[i].genre+'</td><td>'+data[i].director+'</td></tr>');
                 }
-
-                // data.forEach(element => {$("#movieTable").append("
-                //         <tr>
-                //             <td>
-                //                 data[element]["movieID"]
-                //             </td>
-                //         </tr>
-                // ");
-                
                 $('#response pre').html( data );
             },
             error: function( jqXhr, textStatus, errorThrown ){
