@@ -38,11 +38,16 @@ function GetMovies(){
             contentType: 'application/json',
             success: function( data, textStatus, jQxhr ){
                 console.log("reached this point");
-                $("#movieTable").html("");
-                $("#movieTable").html(
+                console.log(data);
+                console.log(["data"][0]["title"]);
+                console.log(data[0].title);
+                console.log(data[0])
+                    $("#movieTable").append(data[0].title);
+                for(let i = 0; i < data.length; i++){
+                        $("#movieTable").append('<tr><td>'+data[0].title+'</td></tr>');
+                        
+                }
 
-
-                $("#movieTable").html("Hello");
                 // data.forEach(element => {$("#movieTable").append("
                 //         <tr>
                 //             <td>
@@ -50,8 +55,6 @@ function GetMovies(){
                 //             </td>
                 //         </tr>
                 // ");
-                    
-            }
                 
                 $('#response pre').html( data );
             },
