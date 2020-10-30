@@ -72,7 +72,7 @@ namespace WebAPISample.Controllers
             _context.Movies.Remove(removeMovie);
             _context.SaveChanges(); 
             // Delete movie from db logic
-            return Ok();
+            return Ok(id);
         }
     }
 }

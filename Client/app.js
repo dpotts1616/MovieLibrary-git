@@ -39,7 +39,6 @@ function GetAllMovies(){
             contentType: 'application/json',
             success: function( data, textStatus, jQxhr ){
                PrintMovieTable(data);
-               $('#response pre').html( data );
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
@@ -67,12 +66,9 @@ function GetAllMovies(){
             type: 'get',
             contentType: 'application/json',
             success: function( data, textStatus, jQxhr ){
-                $("#movieTable").detach();
+                $("#movieTable").empty();
                 PopulateEditForm(data);
                 UpdateMovie(data);
-               
-               $('#response pre').html( data );
-               
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
@@ -101,8 +97,7 @@ function UpdateMovie(movie){
             contentType: 'application/json',
             data: JSON.stringify(dict),
             success: function( data, textStatus, jQxhr ){
-                console.log(data);
-                // $('#response pre').html( data );
+                $("#edit-form").empty();
                 GetAllMovies();
              },
              error: function( jqXhr, textStatus, errorThrown ){
@@ -132,8 +127,6 @@ function DeleteMovie(movieId){
                     break;
 
             }
-           $('#response pre').html( data );
-           
         },
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
@@ -148,9 +141,7 @@ function DeleteMovieCall(movie){
         type: 'delete',
         contentType: 'application/json',
         success: function( data, textStatus, jQxhr ){
-            $('#response pre').html( data );
             GetAllMovies();
-           
         },
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
