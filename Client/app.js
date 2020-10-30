@@ -119,7 +119,7 @@ function DeleteMovie(movieId){
         type: 'get',
         contentType: 'application/json',
         success: function( data, textStatus, jQxhr ){
-            let choice = promptFor("Are you sure you want to delete"+data.title+"?", yesNo).toLowerCase();
+            let choice = promptFor("Are you sure you want to delete "+data.title+"?", yesNo).toLowerCase();
             switch(choice){
                 case 'yes':
                     DeleteMovieCall(data);
