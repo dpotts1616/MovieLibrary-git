@@ -53,15 +53,15 @@ namespace WebAPISample.Controllers
             return Ok(value);
         }
 
-        // PUT api/movie
-        [HttpPut]
-        public IActionResult Put([FromBody] Movie movie)
+        // PUT api/movie/id
+        [HttpPut("{id}")]
+        public IActionResult Put([FromBody] Movie movie,int id)
         {
-
+            movie.MovieId = id;
             _context.Movies.Update(movie);
             _context.SaveChangesAsync();
             // Update movie in db logic
-            return Ok();
+            return Ok(movie);
         }
 
         // DELETE api/movie/5

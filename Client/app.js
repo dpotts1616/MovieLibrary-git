@@ -14,6 +14,7 @@
             data: JSON.stringify(dict),
             success: function( data, textStatus, jQxhr ){
                 $('#response pre').html( data );
+                GetAllMovies();
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
@@ -68,8 +69,8 @@ function GetAllMovies(){
             success: function( data, textStatus, jQxhr ){
                 $("#movieTable").detach();
                 PopulateEditForm(data);
-                UpdateMovie();
-                GetAllMovies();
+                UpdateMovie(data);
+               
                $('#response pre').html( data );
                
             },
@@ -84,31 +85,34 @@ function PopulateEditForm(movie){
     $("#edit-form").html('<input type="hidden" name="movieId" value="'+movie.movieId+'" /><input type="text" name="title" value="'+movie.title+'"/><input type="text" name="genre" value="'+movie.genre+'"/><input type="text" name="director" value="'+movie.director+'"/><button type="submit">Submit</button>')
 }    
 
-function UpdateMovie(){
+function UpdateMovie(movie){
     function processForm( e ){
         var dict = {
-            MovieId : this["movieId"].value,
+            // MovieId : this["movieId"].value,
             Title : this["title"].value,
             Genre : this["genre"].value,
         	Director: this["director"].value
         };
 
         $.ajax({
-            url: 'https://localhost:44325/api/movie',
+            url: 'https://localhost:44325/api/movie/'+movie.movieId,
             dataType: 'json',
             type: 'put',
             contentType: 'application/json',
             data: JSON.stringify(dict),
             success: function( data, textStatus, jQxhr ){
-                $('#response pre').html( data );
+                console.log(data);
+                // $('#response pre').html( data );
+                GetAllMovies();
              },
              error: function( jqXhr, textStatus, errorThrown ){
-                 console.log( errorThrown );
-             }
+                console.log( errorThrown );
+             },
         });
         e.preventDefault();
     }
     $('#edit-form').submit( processForm );
+
 }
 
 
@@ -144,7 +148,8 @@ function DeleteMovieCall(movie){
         type: 'delete',
         contentType: 'application/json',
         success: function( data, textStatus, jQxhr ){
-           $('#response pre').html( data );
+            $('#response pre').html( data );
+            GetAllMovies();
            
         },
         error: function( jqXhr, textStatus, errorThrown ){
