@@ -14,7 +14,9 @@
             data: JSON.stringify(dict),
             success: function( data, textStatus, jQxhr ){
                 $('#response pre').html( data );
+                $("#my-form").empty();
                 GetAllMovies();
+
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
@@ -28,6 +30,9 @@
     $('#my-form').submit( processForm );
 })(jQuery);
 
+function PopulateAddForm(){
+    $("#my-form").html('<input type="text" name="title" placeholder="Title"/><input type="text" name="genre" placeholder="Genre"/><input type="text" name="director" placeholder="Director"/><button type="submit">Submit</button>')
+}   
 
 
 function GetAllMovies(){
@@ -163,3 +168,5 @@ function promptFor(question, valid){
 function yesNo(input){
     return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
   }
+
+  $(document).ready(GetAllMovies());
