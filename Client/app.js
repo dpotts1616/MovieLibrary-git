@@ -45,6 +45,7 @@ function GetAllMovies(){
             success: function( data, textStatus, jQxhr ){
                 $("#allMoviesButton").css("visibility", "hidden");
                 $("#addMovieButton").css("visibility", "visible");
+                $("#movieImage").empty();
                PrintMovieTable(data);
             },
             error: function( jqXhr, textStatus, errorThrown ){
@@ -183,10 +184,27 @@ function ShowMovieDetails(movie){
                     '</td><td>'+movie.genre+
                     '</td><td>'+movie.director+
                     '</td><td><a href="javascript:EditMovie('+movie.movieId+')">Edit</a></td><td><a href="javascript:DeleteMovie('+movie.movieId+')">Delete</a></td></tr>');
-
-    $("#movieImage").append('<img src='+movie.ImageSource+' alt='+movie.title+' width="400" height="400"></img>')
-
+            CallImageApi(movie.title);
+    
     $("#allMoviesButton").css("visibility", "visible");
+}
+
+function CallImageApi(title){
+    $.ajax({
+        url:  `http://www.omdbapi.com/?t=${title}&apikey=ec1ddfc7`,
+        dataType: 'jsonp',
+        type: 'get',
+        contentType: 'application/json',
+        success: function( data, textStatus, jQxhr ){
+            console.log(data);
+            console.log(data.Poster);
+            $("#movieImage").append('<img src='+data.Poster+' alt='+title+'></img>');
+
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+        }
+    });
 }
 
 
