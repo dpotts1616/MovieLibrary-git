@@ -7,26 +7,30 @@
 </head>
 <body>
 
+    <h1>DevCodeCamp's Movie Library of Mostly Great Movies</h1>
+
 <div id="response">
     <pre></pre>
 </div>
 
-<table id="movieTable"></table>
-<button type="button" onclick="GetAllMovies()">All Movies</button>
-<button type="button" onclick="PopulateAddForm()">Add A Movie</button>
-
+<table id="movieTable" class="center"></table>
 <form id="my-form">
-    <!-- <input type="text" name="title" placeholder="Title" />
-    <input type="text" name="genre" placeholder="Genre" />
-    <input type="text" name="director" placeholder="Director" />
-
-    <button type="submit">Submit</button> -->
 </form>
-
-
-
 <form id="edit-form">
 </form>
+
+<div id="movieImage">
+    
+</div>
+
+<div class="center">
+    <button type="button" id="allMoviesButton" style="visibility: hidden;" onclick="GetAllMovies()">All Movies</button>
+</div>
+    <div class="center">
+<button type="button" id="addMovieButton" onclick="PopulateAddForm()">Add A Movie</button>
+</div>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="./app.js"></script>

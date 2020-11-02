@@ -43,6 +43,8 @@ function GetAllMovies(){
             type: 'get',
             contentType: 'application/json',
             success: function( data, textStatus, jQxhr ){
+                $("#allMoviesButton").css("visibility", "hidden");
+                $("#addMovieButton").css("visibility", "visible");
                PrintMovieTable(data);
             },
             error: function( jqXhr, textStatus, errorThrown ){
@@ -53,12 +55,12 @@ function GetAllMovies(){
 
     function PrintMovieTable(data){
         $("#movieTable").html("");
-        $("#movieTable").append('<table><tr><th>Movie Title</th><th>Genre</th><th>Director</th><th>Edit</th><th>Delete</th></tr></table>')
+        $("#movieTable").append('<table><tr><th>Movie Title</th><th>Genre</th><th>Director</th><th>Edit Movie</th><th>Delete Movie</th><th>Movie Details</th></tr></table>');
         for(let i = 0; i < data.length; i++){
                 $("#movieTable").append('<tr><td>'+data[i].title+
                     '</td><td>'+data[i].genre+
                     '</td><td>'+data[i].director+
-                    '</td><td><a href="javascript:EditMovie('+data[i].movieId+')">Edit</a></td><td><a href="javascript:DeleteMovie('+data[i].movieId+')">Delete</a></td></tr>');//Add in delete column//possibly put edit within the line
+                    '</td><td><a href="javascript:EditMovie('+data[i].movieId+')">Edit</a></td><td><a href="javascript:DeleteMovie('+data[i].movieId+')">Delete</a></td><td><a href="javascript:ShowDetails('+data[i].movieId+')">Details</a></td></tr>');
         }
         
     }
@@ -72,6 +74,7 @@ function GetAllMovies(){
             contentType: 'application/json',
             success: function( data, textStatus, jQxhr ){
                 $("#movieTable").empty();
+                $("#addMovieButton").css("visibility", "hidden");
                 PopulateEditForm(data);
                 UpdateMovie(data);
             },
@@ -104,6 +107,7 @@ function UpdateMovie(movie){
             success: function( data, textStatus, jQxhr ){
                 $("#edit-form").empty();
                 GetAllMovies();
+                $("#addMovieButton").css("visibility", "visible");
              },
              error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
@@ -152,6 +156,37 @@ function DeleteMovieCall(movie){
             console.log( errorThrown );
         }
     });
+}
+
+function ShowDetails(movieId){
+    $.ajax({
+        url: 'https://localhost:44325/api/movie/'+movieId,
+        dataType: 'json',
+        type: 'get',
+        contentType: 'application/json',
+        success: function( data, textStatus, jQxhr ){
+            $("#movieTable").empty();
+            $("#addMovieButton").css("visibility", "hidden");
+            ShowMovieDetails(data);
+            
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+        }
+    });
+}
+
+function ShowMovieDetails(movie){
+    $("#movieTable").html("");
+    $("#movieTable").append('<table><tr><th>Movie Title</th><th>Genre</th><th>Director</th><th>Edit Movie</th><th>Delete Movie</th></tr></table>');
+    $("#movieTable").append('<tr><td>'+movie.title+
+                    '</td><td>'+movie.genre+
+                    '</td><td>'+movie.director+
+                    '</td><td><a href="javascript:EditMovie('+movie.movieId+')">Edit</a></td><td><a href="javascript:DeleteMovie('+movie.movieId+')">Delete</a></td></tr>');
+
+    $("#movieImage").append('<img src='+movie.ImageSource+' alt='+movie.title+' width="400" height="400"></img>')
+
+    $("#allMoviesButton").css("visibility", "visible");
 }
 
 
